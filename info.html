@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TO-DO-List</title>
+        <link rel="stylesheet" href="css/design.css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="header" id="mydiv">
+                <h2 class="">Add Your To-Do-List</h2>
+                <div class="row">
+                    <input type="text" id="myinput" placeholder="TO-DO-List">
+                    <button onclick="newElement()" type="submit">ADD</button>
+                </div>
+                <ul id="result">
+            
+                </ul>
+            </div>
+        </div>
+        <script>
+            const myInput = document.getElementById("myinput");
+            const result = document.getElementById("result");
+            function newElement(){
+                if(myInput.value === ''){
+                    alert("You must write something!");
+                } 
+                else{
+                    let li = document.createElement("li");
+                    li.innerHTML = myInput.value;
+                    result.appendChild(li)
+                    let span = document.createElement("span");
+                    span.innerHTML = "\u00d7"
+                    li.appendChild(span)
+                }
+                myInput.value = "";
+                saveData();            
+            }
+            result.addEventListener("click", function(e){
+                if(e.target.tagName === "LI")
+                {
+                    e.target.classList.toggle("checked");
+                    saveData();
+                }
+                else if(e.target.tagName === "SPAN")
+                {
+                    e.target.parentElement.remove();
+                    saveData();
+                }
+            },false);
+            function saveData(){
+                localStorage.setItem("data".result.innerHTML);
+            }
+            function showTask(){
+                result.innerHTML = localStorage.getItem("data")
+            }
+            showTask();
+        </script>
+    </body>
+</html>
